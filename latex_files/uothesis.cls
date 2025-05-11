@@ -60,6 +60,7 @@
 \newif\ifnofigures
 \newif\iflistings
 \newif\if@dissertation
+\newif\if@prospectus
 \newif\if@approved
 \newif\if@copyright
 \newif\if@gsmodern
@@ -68,8 +69,9 @@
 \newif\if@draftimage
 \newif\if@lackscommittee
 
-\DeclareOption{dissertation}{\@dissertationtrue\thesistrue}
-\DeclareOption{msthesis}{\@dissertationfalse\thesistrue}
+\DeclareOption{dissertation}{\@dissertationtrue\thesistrue\@prospectusfalse}
+\DeclareOption{msthesis}{\@dissertationfalse\thesistrue\@prospectusfalse}
+\DeclareOption{prospectus}{\@dissertationtrue\thesistrue\@prospectustrue}
 \DeclareOption{approved}{\@approvedtrue}
 \DeclareOption{draftimages}{\draftimagetrue\PassOptionsToPackage{draft}{graphicx}}
 \DeclareOption{draftcopy}{\drafttrue\draftcopytrue\boundtrue}
@@ -193,11 +195,19 @@
 \def\@draftdate{{\the\year/\/\two@digits{\the\month}/\/\two@digits{\the\day}}}
 \def\@longdraftdate{\today}
 \if@dissertation
-   \ifdraftcopy
-     \gdef\@cappapertype{Dissertation Draft}
-   \else
-     \gdef\@cappapertype{Dissertation}
-   \fi
+   \if@prospectus
+     \ifdraftcopy
+       \gdef\@cappapertype{Dissertation Prospectus Draft}
+     \else
+       \gdef\@cappapertype{Dissertation Prospectus}
+    \fi
+  \else
+     \ifdraftcopy
+       \gdef\@cappapertype{Dissertation Draft}
+     \else
+       \gdef\@cappapertype{Dissertation}
+    \fi
+  \fi
 \else
    \ifdraftcopy
      \gdef\@cappapertype{Thesis Draft}
@@ -379,20 +389,29 @@ of this document.}
   \begin{center}
   \vspace*{0.25in}
   \doublespacing
-  \@covertitle
+  \MakeUppercase{\@covertitle}
   \singlespacing
   \vfill
   by \\*[\baselineskip]
-  \@author\\*
-  \vfil
-  \ifdraft\@disclaimer\\\fi\vfill
-  \doublespacing
-   A \@papertype\ accepted and approved in partial fulfillment of the \\*
-   requirements for the degree of \\*
-   \@degree \\*
-   in \@major \\*[\baselineskip]
+  \MakeUppercase{\@author}\\*
+  \vfill
+  \ifdraft\@disclaimer\\\fi
+  % \vfill
+  % \doublespacing
+  A \MakeUppercase{\@cappapertype} \\*
+  Presented to the \@department \\*
+  of the University of Oregon \\*
+  in partial fullfillment of the requirements \\*
+  for the degree of \@degree \\*[\baselineskip]
+  \@degreemonth ~\thedegreeyear\\
 
-   Dissertation Committee:\\*
+  \end{center}
+
+  ``\@covertitle", a \lowercase{\@cappapertype} 
+  prepared by \@author \ in partial fulfillment of the requirements for the 
+  \@degree  \ degree in the \@department.
+  This \lowercase{\@cappapertype} has been approved and accepted by: \\*[\baselineskip]
+
    \if@cochairs
      \@cochairs
    \else
@@ -406,10 +425,6 @@ of this document.}
    \else
      \@committee
    \fi
-   \vfill
-   University of Oregon \\*
-   \@degreemonth ~\thedegreeyear\\
-   \end{center}
 }
 
 \def\@makecopyrightpage{
