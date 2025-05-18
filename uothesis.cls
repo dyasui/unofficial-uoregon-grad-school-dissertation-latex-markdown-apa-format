@@ -409,12 +409,13 @@ of this document.}
   \end{center}
   \newpage
 
-  \noindent
   \singlespacing
+  \noindent
   ``\@covertitle", a \lowercase{\@cappapertype} 
   prepared by \@author \ in partial fulfillment of the requirements for the 
   \@degree  \ degree in the \@department.
-  This \lowercase{\@cappapertype} has been approved and accepted by: \\*[\baselineskip]
+  \if@approved This \lowercase{\@cappapertype} has been approved and accepted by:\fi
+  \\*[\baselineskip]
 
   \noindent
    \if@cochairs
@@ -589,7 +590,7 @@ All rights reserved.
   \@maketitlepage
   \@makecopyrightpage
   \@makeabstractpage
-  \@makevita
+  % \@makevita
   \@makeackpage
   \@makededpage
   \begin{singlespacing}
