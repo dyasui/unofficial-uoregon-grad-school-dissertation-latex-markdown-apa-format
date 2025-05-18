@@ -197,9 +197,9 @@
 \if@dissertation
    \if@prospectus
      \ifdraftcopy
-       \gdef\@cappapertype{Dissertation Prospectus Draft}
+       \gdef\@cappapertype{dissertation prospectus draft}
      \else
-       \gdef\@cappapertype{Dissertation Prospectus}
+       \gdef\@cappapertype{dissertation prospectus}
     \fi
   \else
      \ifdraftcopy
@@ -399,6 +399,7 @@ of this document.}
   % \vfill
   % \doublespacing
   A \MakeUppercase{\@cappapertype} \\*
+  \\*
   Presented to the \@department \\*
   of the University of Oregon \\*
   in partial fullfillment of the requirements \\*
@@ -406,12 +407,16 @@ of this document.}
   \@degreemonth ~\thedegreeyear\\
 
   \end{center}
+  \newpage
 
+  \noindent
+  \singlespacing
   ``\@covertitle", a \lowercase{\@cappapertype} 
   prepared by \@author \ in partial fulfillment of the requirements for the 
   \@degree  \ degree in the \@department.
   This \lowercase{\@cappapertype} has been approved and accepted by: \\*[\baselineskip]
 
+  \noindent
    \if@cochairs
      \@cochairs
    \else
